@@ -16,6 +16,14 @@ const registerUser = async (request, h) => {
     response.code(201)
     return response
   } catch (error) {
+    if (error.errorInfo.code === 'auth/email-already-exists') {
+      const response = h.response({
+        error: error.message,
+      })
+      response.code(400)
+      return response
+    }
+
     const response = h.response({
       error: error.message,
     })
@@ -43,6 +51,14 @@ const loginUser = async (request, h) => {
     response.code(200)
     return response
   } catch (error) {
+    if (error.response.status === 400) {
+      const response = h.response({
+        error: error.message,
+      })
+      response.code(400)
+      return response
+    }
+
     const response = h.response({
       error: error.message,
     })
