@@ -1,0 +1,63 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "User Auth REST API",
+    "description": "API Specification for User Auth REST API",
+    "version": "1.0"
+  },
+  "servers": [{ "url": "http://localhost:5000" }],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": ["User Auth API"],
+        "description": "Register New User",
+        "summary": "Register New User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "johndoe@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "rahasia12345"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Register new user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uid": {
+                      "type": "string",
+                      "example": "pkTTL83BzQOaAZB8oydiyy3gLoW2"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "johndoe@gmail.com"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
