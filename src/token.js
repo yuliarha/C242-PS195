@@ -13,6 +13,10 @@ const generateToken = (user) => {
   return token
 }
 
+const verifyToken = (token) => {
+  return jwt.verify(token, process.env.JWT_SECRET_KEY)
+}
+
 // validateToken
 
-module.exports = { generateToken }
+module.exports = { generateToken, verifyToken }
