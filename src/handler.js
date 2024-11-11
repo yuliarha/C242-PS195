@@ -1,5 +1,5 @@
 const { default: axios } = require('axios')
-const admin = require('./firebase')
+
 
 const registerUser = async (request, h) => {
   const { name, email, password } = request.payload
