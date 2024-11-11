@@ -22,7 +22,7 @@
                     "type": "string",
                     "example": "John Doe"
                   },
-                  "email": {
+                  "username": {
                     "type": "string",
                     "example": "johndoe@gmail.com"
                   },
