@@ -1,14 +1,15 @@
-require("dotenv").config()
-const Hapi = require("@hapi/hapi")
-const routes = require("./src/routes")
+require('dotenv').config()
+
+const Hapi = require('@hapi/hapi')
+const routes = require('./src/routes')
 
 const init = async () => {
   const server = Hapi.server({
     port: 5000,
-    host: "localhost",
+    host: 'localhost',
     routes: {
       cors: {
-        origin: ["*"],
+        origin: ['*'],
       },
     },
   })
