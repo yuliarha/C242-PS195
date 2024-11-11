@@ -1,4 +1,5 @@
-const { registerUser, loginUser } = require('./handler')
+const { registerUser, loginUser, changeUsername } = require('./handler')
+const { validateToken } = require('./token')
 
 const routes = [
   {
@@ -12,6 +13,14 @@ const routes = [
     path: '/api/user/login',
     handler: loginUser,
   },
+  // {
+  //   method: 'PUT',
+  //   path: '/api/user/edit',
+  //   options: {
+  //     pre: [{ method: validateToken }],
+  //   },
+  //   handler: changeUsername,
+  // },
 ]
 
 module.exports = routes
