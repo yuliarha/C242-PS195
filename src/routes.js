@@ -1,16 +1,14 @@
-const { registerUser, loginUser } = require('./handler')
+const { test } = require("./handler");
+
 
 const routes = [
-  {
-    method: 'POST',
-    path: '/register',
-    handler: registerUser,
-  },
-  {
-    method: 'POST',
-    path: '/login',
-    handler: loginUser,
-  },
+    {
+      method: 'POST',
+      path: '/api-test',
+      handler: test
+    
+    },
+
 ]
 
-module.exports = routes
+module.exports = routes;

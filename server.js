@@ -1,6 +1,6 @@
 require('dotenv').config()
-
 const Hapi = require('@hapi/hapi')
+const dbConfig = require('./src/db')
 const routes = require('./src/routes')
 
 const init = async () => {
@@ -14,10 +14,13 @@ const init = async () => {
     },
   })
 
-  server.route(routes)
+   server.route(routes);
 
+
+ 
   await server.start()
-  console.log(`Server is running on port ${server.info.uri}`)
+  console.log(`server is running on ${server.info.uri} `)
 }
 
-init()
+
+init();
