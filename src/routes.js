@@ -1,4 +1,4 @@
-const { registerUser } = require("./handler");
+const { registerUser } = require("./handler")
 
 const routes = [
   {
@@ -6,6 +6,6 @@ const routes = [
     path: "/api/user/register",
     handler: registerUser,
   },
-];
+]
 
-module.exports = routes;
+module.exports = routes

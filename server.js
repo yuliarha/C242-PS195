@@ -1,6 +1,6 @@
-require("dotenv").config();
-const Hapi = require("@hapi/hapi");
-const routes = require("./src/routes");
+require("dotenv").config()
+const Hapi = require("@hapi/hapi")
+const routes = require("./src/routes")
 
 const init = async () => {
   const server = Hapi.server({
@@ -11,12 +11,12 @@ const init = async () => {
         origin: ["*"],
       },
     },
-  });
+  })
 
-  server.route(routes);
+  server.route(routes)
 
-  await server.start();
-  console.log(`server is running on ${server.info.uri} `);
-};
+  await server.start()
+  console.log(`server is running on ${server.info.uri} `)
+}
 
-init();
+init()
