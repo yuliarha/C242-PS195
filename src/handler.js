@@ -6,13 +6,6 @@ const { loginSchema } = require('./schema')
 const { registerSchema } = require('./schema')
 
 const registerUser = async (request, h) => {
-  if (existingUser.length > 0) {
-    const response = h.response({
-      data: 'Username atau Email sudah ada',
-    })
-    response.code(400)
-    return response
-  }
   const { error } = registerSchema.validate(request.payload, {
     abortEarly: false,
   })
@@ -42,6 +35,14 @@ const registerUser = async (request, h) => {
       username,
       email,
     ])
+
+    if (existingUser.length > 0) {
+      const response = h.response({
+        data: 'Username atau Email sudah ada',
+      })
+      response.code(400)
+      return response
+    }
 
     const [result] = await dbConfig.query(createQuery, [
       id,
