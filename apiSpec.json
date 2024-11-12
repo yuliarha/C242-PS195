@@ -82,9 +82,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "email": {
+                  "username": {
                     "type": "string",
-                    "example": "johndoe@gmail.com"
+                    "example": "johndoe"
                   },
                   "password": {
                     "type": "string",
@@ -121,7 +121,23 @@
                   "properties": {
                     "error": {
                       "type": "string",
-                      "example": "Request failed"
+                      "example": "Username not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "username is not allowed to be empty"
                     }
                   }
                 }

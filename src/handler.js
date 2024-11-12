@@ -83,7 +83,7 @@ const loginUser = async (request, h) => {
         status: 'failed',
         message: error.message,
       })
-      response.code(400)
+      response.code(422)
       return response
     }
 
