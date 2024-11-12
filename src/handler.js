@@ -6,6 +6,25 @@ const { loginSchema } = require('./shcema')
 const { registerSchema } = require('./shcema')
 
 const registerUser = async (request, h) => {
+  if (existingUser.length > 0) {
+    const response = h.response({
+      data: 'Username atau Email sudah ada',
+    })
+    response.code(400)
+    return response
+  }
+  const { error } = registerSchema.validate(request.payload, {
+    abortEarly: false,
+  })
+  if (error) {
+    const response = h.response({
+      status: 'failed',
+      message: error.message,
+    })
+    response.code(422)
+    return response
+  }
+
   const { username, email, password } = request.payload
   const id = nanoid()
   const role = 'user'
@@ -23,25 +42,6 @@ const registerUser = async (request, h) => {
       username,
       email,
     ])
-
-    if (existingUser.length > 0) {
-      const response = h.response({
-        data: 'Username atau Email sudah ada',
-      })
-      response.code(400)
-      return response
-    }
-    const { error } = registerSchema.validate(request.payload, {
-      abortEarly: false,
-    })
-    if (error) {
-      const response = h.response({
-        status: 'failed',
-        message: error.message,
-      })
-      response.code(400)
-      return response
-    }
 
     const [result] = await dbConfig.query(createQuery, [
       id,
