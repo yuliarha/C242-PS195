@@ -1,8 +1,8 @@
-const dbConfig = require("./db")
-const bcrypt = require("bcrypt")
-const { generateToken } = require("./token")
-const { nanoid } = require("nanoid")
-const { checkPrime } = require("crypto")
+const dbConfig = require('./db')
+const bcrypt = require('bcrypt')
+const { generateToken } = require('./token')
+const { nanoid } = require('nanoid')
+const { loginSchema } = require('./shcema')
 
 const registerUser = async (request, h) => {
   const { username, email, password, role } = request.payload
@@ -10,12 +10,12 @@ const registerUser = async (request, h) => {
   const created_at = new Date()
   const updated_at = created_at
 
-  const checkUserQuery = "SELECT * FROM users WHERE username = ? OR email = ?"
+  const checkUserQuery = 'SELECT * FROM users WHERE username = ? OR email = ?'
   const [existingUser] = await dbConfig.query(checkUserQuery, [username, email])
 
   if (existingUser.length > 0) {
     const response = h.response({
-      data: "Username atau Email sudah ada, silakan gunakan yang lain",
+      data: 'Username atau Email sudah ada, silakan gunakan yang lain',
     })
     response.code(400)
     return response
@@ -25,7 +25,7 @@ const registerUser = async (request, h) => {
   const hashed_password = await bcrypt.hash(password, salt)
 
   const createQuery =
-    "INSERT INTO users (id, username, email, hashed_password, role, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)"
+    'INSERT INTO users (id, username, email, hashed_password, role, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)'
   try {
     const [result] = await dbConfig.query(createQuery, [
       id,
@@ -42,9 +42,9 @@ const registerUser = async (request, h) => {
     response.code(200)
     return response
   } catch (error) {
-    if (error.code === "ER_DUP_ENTRY") {
+    if (error.code === 'ER_DUP_ENTRY') {
       const response = h.response({
-        data: "Username atau Email Sudah Ada",
+        data: 'Username atau Email Sudah Ada',
       })
       response.code(400)
       return response
@@ -59,15 +59,27 @@ const registerUser = async (request, h) => {
 
 const loginUser = async (request, h) => {
   try {
+    const { error } = loginSchema.validate(request.payload, {
+      abortEarly: false,
+    })
+    if (error) {
+      const response = h.response({
+        status: 'failed',
+        message: error.message,
+      })
+      response.code(400)
+      return response
+    }
+
     const { username, password } = request.payload
 
-    const searchQuery = "SELECT * FROM users WHERE username = ?"
+    const searchQuery = 'SELECT * FROM users WHERE username = ?'
     const [row] = await dbConfig.query(searchQuery, [username])
 
     if (!row.length) {
       const response = h.response({
-        status: "failed",
-        message: "Username tidak ditemukan",
+        status: 'failed',
+        message: 'Username tidak ditemukan',
       })
       response.code(400)
       return response
@@ -79,8 +91,8 @@ const loginUser = async (request, h) => {
 
     if (!isPasswordMatched) {
       const response = h.response({
-        status: "failed",
-        message: "Password salah",
+        status: 'failed',
+        message: 'Password salah',
       })
       response.code(400)
       return response
@@ -89,14 +101,14 @@ const loginUser = async (request, h) => {
     const token = generateToken(user)
 
     const response = h.response({
-      status: "success",
+      status: 'success',
       token,
     })
     response.code(200)
     return response
   } catch (error) {
     const response = h.response({
-      status: "failed",
+      status: 'failed',
       message: error,
     })
     response.code(500)
