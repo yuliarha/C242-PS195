@@ -1,4 +1,4 @@
-const { registerUser, loginUser, changeUsername } = require('./handler')
+const { registerUser, loginUser } = require('./handler')
 const { validateToken } = require('./token')
 
 const routes = [

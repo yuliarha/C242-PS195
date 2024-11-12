@@ -1,10 +1,10 @@
 const mysql = require("mysql2/promise")
 
 const dbConfig = mysql.createPool({
-  host: "localhost",
-  user: process.env.USERNAME,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'travel',
   connectionLimit: 10,
   maxIdle: 10,
   idleTimeout: 60000,
