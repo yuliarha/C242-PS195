@@ -2,8 +2,8 @@ const dbConfig = require('./db')
 const bcrypt = require('bcrypt')
 const { generateToken } = require('./token')
 const { nanoid } = require('nanoid')
-const { loginSchema } = require('./shcema')
-const { registerSchema } = require('./shcema')
+const { loginSchema } = require('./schema')
+const { registerSchema } = require('./schema')
 
 const registerUser = async (request, h) => {
   if (existingUser.length > 0) {
