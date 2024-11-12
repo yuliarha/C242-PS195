@@ -11,6 +11,4 @@ const registerSchema = Joi.object({
   username: Joi.string().required(),
 })
 
-
-
 module.exports = { loginSchema, registerSchema }
