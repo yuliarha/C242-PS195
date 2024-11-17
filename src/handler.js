@@ -59,6 +59,7 @@ const registerUser = async (request, h) => {
     response.code(200)
     return response
   } catch (error) {
+    console.log(error)
     if (error.code === 'ER_DUP_ENTRY') {
       const response = h.response({
         data: 'Username atau Email Sudah Ada',
