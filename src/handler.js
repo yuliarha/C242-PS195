@@ -54,7 +54,8 @@ const registerUser = async (request, h) => {
       updated_at,
     ])
     const response = h.response({
-      data: result,
+      status: 'success',
+      message: 'User berhasil dibuat',
     })
     response.code(200)
     return response

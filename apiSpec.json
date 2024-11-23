@@ -39,13 +39,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "uid": {
+                    "Username": {
                       "type": "string",
-                      "example": "pkTTL83BzQOaAZB8oydiyy3gLoW2"
+                      "example": "johndoe"
                     },
-                    "email": {
+                    "Password": {
                       "type": "string",
-                      "example": "johndoe@gmail.com"
+                      "example": "rahasia12345"
                     }
                   }
                 }
@@ -62,6 +62,22 @@
                     "error": {
                       "type": "string",
                       "example": "The email address is already in use by another account."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Username is not allowed to be empty"
                     }
                   }
                 }
