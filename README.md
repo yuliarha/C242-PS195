@@ -1,5 +1,5 @@
-# YOUR TRAVEL ASSISTANT - CLOUD COMPUTING
-Your Travel Assistant is App that will Help people who want to travel 
+# Hotrip - CLOUD COMPUTING
+
 ## Bangkit Capstone Project 2024
 
 ## Description
