@@ -1,1 +1,1 @@
-# YOUR TRAVEL ASSISTANT
+# Hotrip
