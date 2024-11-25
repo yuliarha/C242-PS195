@@ -1,6 +1,6 @@
-# Hotrip - CLOUD COMPUTING
+# Hotrip - Horas Trip App - CLOUD COMPUTING
 
-## Bangkit Capstone Project 2024
+## Bangkit Capstone Project 2024H2
 
 ## Description
 
