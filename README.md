@@ -15,6 +15,8 @@ Bangkti Capstone Team ID: C242-PS195
 | Yulia Rahmatika Husnul Aeni | M350B4KX4565 | Machine Learning |			|
 | Selvya Mulyaningtyas Dwi Jayanti | M256B4KX4099 | Machine Learning |			|
 
+## About This Project
+
 ## Repositories
 
 | Branch Name             | Branch Link| 
@@ -22,3 +24,7 @@ Bangkti Capstone Team ID: C242-PS195
 | Cloud Computing | [CC Branch](https://github.com/jovi345/C242-PS195/tree/cloud-computing) |
 | Machine Learning | [ML Branch](https://github.com/jovi345/C242-PS195/tree/machine-learning)|
 | Mobile Development | [MD Branch](https://github.com/jovi345/C242-PS195/tree/mobile-development)  |
+
+## App Overview
+
+## Tech Stack
