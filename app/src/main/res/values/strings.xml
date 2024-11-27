@@ -28,4 +28,6 @@
     <string name="your_travel_assistant">Your Travel Assistant</string>
     <string name="login_background">login background</string>
     <string name="logout">Logout</string>
+    <string name="search_here">Search Here</string>
+    <string name="settings">Settings</string>
 </resources>
