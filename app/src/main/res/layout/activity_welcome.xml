@@ -12,53 +12,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/intro" />
+        android:src="@drawable/banner" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/view"
-        android:layout_width="386dp"
-        android:layout_height="311dp"
-        android:layout_centerInParent="true"
-        app:cardBackgroundColor="@color/black"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:paddingTop="15dp"
-            android:text="@string/welcome_to_hotrip_app"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="106dp"
-                android:paddingTop="20dp"
-                android:text="@string/the_best_place_to_find_your_next_trip_and_explore_the_world_you_never_knew_before_here"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="13sp" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
-                android:layout_marginTop="20dp"
-                android:text="@string/get_started"
-                android:textColor="@color/white"
-                app:strokeColor="@color/white"
-                android:textSize="15sp"
-                app:icon="@drawable/baseline_arrow_forward_ios_24"
-                app:iconTint="@color/white"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStart"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/get_started"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:strokeColor="@color/white" />
 
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

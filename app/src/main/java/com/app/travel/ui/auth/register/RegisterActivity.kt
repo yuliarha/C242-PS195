@@ -28,6 +28,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         val tvLogin = findViewById<TextView>(R.id.textViewLogin)
         tvLogin.setOnClickListener {

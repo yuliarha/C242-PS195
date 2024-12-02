@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@drawable/bg_login"
     android:orientation="vertical"
     style="@style/loginParent"
     tools:context=".ui.auth.login.LoginActivity">
