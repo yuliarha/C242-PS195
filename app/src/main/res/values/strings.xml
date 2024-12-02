@@ -40,4 +40,7 @@
     <string name="title">Title</string>
     <string name="kota">Kota</string>
     <string name="daerah">Daerah</string>
+    <string name="the_best_place_to_find_your_next_trip_and_explore_the_world_you_never_knew_before_here">The Best Place To Find Your Next Trip and Explore the world you never knew before here</string>
+    <string name="welcome_to_hotrip_app">Welcome To Hotrip App</string>
+    <string name="get_started">Get Started</string>
 </resources>
