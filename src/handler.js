@@ -138,38 +138,26 @@ const loginUser = async (request, h) => {
   }
 }
 
-// const changeUsername = async (request, h) => {
-//   const { newUsername } = request.payload
+const getDestinationById = async (request, h) => {
+  const { id } = request.params
+  const searchQuery = 'SELECT * FROM destinations WHERE id = ?'
+  const [row] = await dbConfig.query(searchQuery, [id])
 
-//   const searchQuery = 'SELECT * FROM users WHERE username=?'
-//   const [row] = await dbConfig.query(searchQuery, [newUsername])
+  if (row.length != 1) {
+    const response = h.response({
+      status: 'failed',
+      message: 'No place was found with that ID',
+    })
+    response.code(400)
+    return response
+  }
 
-//   if (row.length) {
-//     const response = h.response({
-//       status: 'failed',
-//       message: 'Username sudah ada',
-//     })
-//     response.code(400)
-//     return response
-//   }
+  const response = h.response({
+    status: 'success',
+    data: row[0],
+  })
+  response.code(200)
+  return response
+}
 
-//   const authUser = request.auth.credentials
-//   const { email } = authUser
-//   const updated_at = new Date()
-
-//   const updateQuery = 'UPDATE users SET username=?, updated_at=? WHERE email=?'
-//   const [result] = await dbConfig.query(updateQuery, [
-//     newUsername,
-//     updated_at,
-//     email,
-//   ])
-
-//   const response = h.response({
-//     status: 'success',
-//     result,
-//   })
-//   response.code(200)
-//   return response
-// }
-
-module.exports = { registerUser, loginUser }
+module.exports = { registerUser, loginUser, getDestinationById }
