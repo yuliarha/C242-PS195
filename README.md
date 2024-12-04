@@ -11,5 +11,5 @@
 
 
 ## Cloud Architecture
-![hotrip architecture drawio (4)](https://github.com/user-attachments/assets/4050e908-36a9-4be4-af9c-39ca7f8f2b6c)
+![hotrip architecture drawio (6)](https://github.com/user-attachments/assets/051882ee-3d5a-4981-91c9-3ea2eb106b96)
 
