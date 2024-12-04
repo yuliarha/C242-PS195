@@ -1,10 +1,10 @@
-const dbConfig = require('./db')
-const bcrypt = require('bcrypt')
-const { generateToken } = require('./token')
-const { nanoid } = require('nanoid')
-const { loginSchema } = require('./schema')
-const { registerSchema } = require('./schema')
-const axios = require('axios')
+const dbConfig = require("./db")
+const bcrypt = require("bcrypt")
+const { generateToken } = require("./token")
+const { nanoid } = require("nanoid")
+const { loginSchema } = require("./schema")
+const { registerSchema } = require("./schema")
+const axios = require("axios")
 
 const registerUser = async (request, h) => {
   const { error } = registerSchema.validate(request.payload, {
@@ -12,7 +12,7 @@ const registerUser = async (request, h) => {
   })
   if (error) {
     const response = h.response({
-      status: 'failed',
+      status: "failed",
       message: error.message,
     })
     response.code(422)
@@ -23,14 +23,14 @@ const registerUser = async (request, h) => {
     request.payload
   if (password !== confirmPassword) {
     const response = h.response({
-      status: 'fail',
-      data: 'Password does not match',
+      status: "fail",
+      data: "Password does not match",
     })
     response.code(400)
     return response
   }
   const id = nanoid()
-  const role = 'user'
+  const role = "user"
   const created_at = new Date()
   const updated_at = created_at
 
@@ -38,15 +38,15 @@ const registerUser = async (request, h) => {
   const hashed_password = await bcrypt.hash(password, salt)
 
   const createQuery =
-    'INSERT INTO users (id, username, email, hashed_password, role, created_at, updated_at, user_location) VALUES(?, ?, ?, ?, ?, ?, ?, ?)'
+    "INSERT INTO users (id, username, email, hashed_password, role, created_at, updated_at, user_location) VALUES(?, ?, ?, ?, ?, ?, ?, ?)"
   try {
-    const checkUserQuery = 'SELECT * FROM users WHERE email = ?'
+    const checkUserQuery = "SELECT * FROM users WHERE email = ?"
     const [existingUser] = await dbConfig.query(checkUserQuery, [email])
 
     if (existingUser.length > 0) {
       const response = h.response({
-        status: 'failed',
-        data: 'Email has been used for registration',
+        status: "failed",
+        data: "Email has been used for registration",
       })
       response.code(400)
       return response
@@ -65,24 +65,24 @@ const registerUser = async (request, h) => {
 
     if (result.affectedRows === 1) {
       const response = h.response({
-        status: 'success',
-        message: 'User has been successfully created',
+        status: "success",
+        message: "User has been successfully created",
       })
       response.code(200)
       return response
     }
 
     const response = h.response({
-      status: 'failed',
-      message: 'Systems failure',
+      status: "failed",
+      message: "Systems failure",
     })
     response.code(500)
     return response
   } catch (error) {
     console.log(error)
-    if (error.code === 'ER_DUP_ENTRY') {
+    if (error.code === "ER_DUP_ENTRY") {
       const response = h.response({
-        data: 'Email has been used for registration',
+        data: "Email has been used for registration",
       })
       response.code(400)
       return response
@@ -102,7 +102,7 @@ const loginUser = async (request, h) => {
     })
     if (error) {
       const response = h.response({
-        status: 'failed',
+        status: "failed",
         message: error.message,
       })
       response.code(422)
@@ -111,13 +111,13 @@ const loginUser = async (request, h) => {
 
     const { email, password } = request.payload
 
-    const searchQuery = 'SELECT * FROM users WHERE email = ?'
+    const searchQuery = "SELECT * FROM users WHERE email = ?"
     const [row] = await dbConfig.query(searchQuery, [email])
 
     if (!row.length) {
       const response = h.response({
-        status: 'failed',
-        message: 'Account is not found. Email is not registered',
+        status: "failed",
+        message: "Account is not found. Email is not registered",
       })
       response.code(400)
       return response
@@ -129,8 +129,8 @@ const loginUser = async (request, h) => {
 
     if (!isPasswordMatched) {
       const response = h.response({
-        status: 'failed',
-        message: 'Wrong password',
+        status: "failed",
+        message: "Wrong password",
       })
       response.code(400)
       return response
@@ -139,7 +139,7 @@ const loginUser = async (request, h) => {
     const token = generateToken(user)
 
     const response = h.response({
-      status: 'success',
+      status: "success",
       loginResult: {
         email,
         token,
@@ -150,7 +150,7 @@ const loginUser = async (request, h) => {
   } catch (error) {
     console.log(error)
     const response = h.response({
-      status: 'failed',
+      status: "failed",
       message: error,
     })
     response.code(500)
@@ -160,20 +160,20 @@ const loginUser = async (request, h) => {
 
 const getDestinationById = async (request, h) => {
   const { id } = request.params
-  const searchQuery = 'SELECT * FROM destinations WHERE id = ?'
+  const searchQuery = "SELECT * FROM destinations WHERE id = ?"
   const [row] = await dbConfig.query(searchQuery, [id])
 
   if (row.length != 1) {
     const response = h.response({
-      status: 'failed',
-      message: 'No place was found with that ID',
+      status: "failed",
+      message: "No place was found with that ID",
     })
     response.code(400)
     return response
   }
 
   const response = h.response({
-    status: 'success',
+    status: "success",
     data: row[0],
   })
   response.code(200)
@@ -183,20 +183,20 @@ const getDestinationById = async (request, h) => {
 const searchDestinationByPlaceName = async (request, h) => {
   const { place_name } = request.payload
 
-  const searchQuery = 'SELECT * FROM destinations WHERE place_name = ?'
+  const searchQuery = "SELECT * FROM destinations WHERE place_name = ?"
   const [row] = await dbConfig.query(searchQuery, [place_name])
 
   if (row.length != 1) {
     const response = h.response({
-      status: 'failed',
-      message: 'Place is not found',
+      status: "failed",
+      message: "Place is not found",
     })
     response.code(400)
     return response
   }
 
   const response = h.response({
-    status: 'success',
+    status: "success",
     data: row[0],
   })
   return response
@@ -206,7 +206,7 @@ const recommendPlaceByLastseen = async (request, h) => {
   const authUser = request.auth.credentials
   const { email } = authUser
 
-  const query = 'SELECT * FROM users WHERE email = ?'
+  const query = "SELECT * FROM users WHERE email = ?"
   const [row] = await dbConfig.query(query, [email])
 
   const id = 9
@@ -218,8 +218,51 @@ const recommendPlaceByLastseen = async (request, h) => {
   const { data } = dataResponse
 
   const response = h.response({
-    status: 'success',
+    status: "success",
     data,
+  })
+  response.code(200)
+  return response
+}
+const getDestinationByCatergoryName = async (request, h) => {
+  const { categoryname } = request.params
+  const categoryquery = "SELECT * FROM destinations WHERE category_name=?"
+  const [row] = await dbConfig.query(categoryquery, [categoryname])
+
+  if (row.length != 1) {
+    const response = h.response({
+      status: "failed",
+      message: "No place was found with that name",
+    })
+    response.code(400)
+    return response
+  }
+
+  const response = h.response({
+    status: "success",
+    data: row[0],
+  })
+  response.code(200)
+  return response
+}
+
+const getDestinationByCityTag = async (request, h) => {
+  const { citytag } = request.params
+  const getcityquery = "SELECT * FROM destinations WHERE city_tag=?"
+  const [row] = await dbConfig.query(getcityquery, [citytag])
+
+  if (row.length != 1) {
+    const response = h.response({
+      status: "failed",
+      message: "theres no city with such name",
+    })
+    response.code(400)
+    return response
+  }
+
+  const response = h.response({
+    status: "success",
+    data: row[0],
   })
   response.code(200)
   return response
@@ -231,4 +274,6 @@ module.exports = {
   getDestinationById,
   searchDestinationByPlaceName,
   recommendPlaceByLastseen,
+  getDestinationByCatergoryName,
+  getDestinationByCityTag,
 }
