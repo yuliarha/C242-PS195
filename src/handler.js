@@ -18,7 +18,16 @@ const registerUser = async (request, h) => {
     return response
   }
 
-  const { username, email, password } = request.payload
+  const { username, email, password, confirmPassword, userLocation } =
+    request.payload
+  if (password !== confirmPassword) {
+    const response = h.response({
+      status: 'fail',
+      data: 'Password does not match',
+    })
+    response.code(400)
+    return response
+  }
   const id = nanoid()
   const role = 'user'
   const created_at = new Date()
@@ -28,17 +37,15 @@ const registerUser = async (request, h) => {
   const hashed_password = await bcrypt.hash(password, salt)
 
   const createQuery =
-    'INSERT INTO users (id, username, email, hashed_password, role, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)'
+    'INSERT INTO users (id, username, email, hashed_password, role, created_at, updated_at, user_location) VALUES(?, ?, ?, ?, ?, ?, ?, ?)'
   try {
-    const checkUserQuery = 'SELECT * FROM users WHERE username = ? OR email = ?'
-    const [existingUser] = await dbConfig.query(checkUserQuery, [
-      username,
-      email,
-    ])
+    const checkUserQuery = 'SELECT * FROM users WHERE email = ?'
+    const [existingUser] = await dbConfig.query(checkUserQuery, [email])
 
     if (existingUser.length > 0) {
       const response = h.response({
-        data: 'Username atau Email sudah ada',
+        status: 'failed',
+        data: 'Email has been used for registration',
       })
       response.code(400)
       return response
@@ -52,18 +59,29 @@ const registerUser = async (request, h) => {
       role,
       created_at,
       updated_at,
+      userLocation,
     ])
+
+    if (result.affectedRows === 1) {
+      const response = h.response({
+        status: 'success',
+        message: 'User has been successfully created',
+      })
+      response.code(200)
+      return response
+    }
+
     const response = h.response({
-      status: 'success',
-      message: 'User berhasil dibuat',
+      status: 'failed',
+      message: 'Systems failure',
     })
-    response.code(200)
+    response.code(500)
     return response
   } catch (error) {
     console.log(error)
     if (error.code === 'ER_DUP_ENTRY') {
       const response = h.response({
-        data: 'Username atau Email Sudah Ada',
+        data: 'Email has been used for registration',
       })
       response.code(400)
       return response
@@ -90,15 +108,15 @@ const loginUser = async (request, h) => {
       return response
     }
 
-    const { username, password } = request.payload
+    const { email, password } = request.payload
 
-    const searchQuery = 'SELECT * FROM users WHERE username = ?'
-    const [row] = await dbConfig.query(searchQuery, [username])
+    const searchQuery = 'SELECT * FROM users WHERE email = ?'
+    const [row] = await dbConfig.query(searchQuery, [email])
 
     if (!row.length) {
       const response = h.response({
         status: 'failed',
-        message: 'Username tidak ditemukan',
+        message: 'Account is not found. Email is not registered',
       })
       response.code(400)
       return response
@@ -111,7 +129,7 @@ const loginUser = async (request, h) => {
     if (!isPasswordMatched) {
       const response = h.response({
         status: 'failed',
-        message: 'Password salah',
+        message: 'Wrong password',
       })
       response.code(400)
       return response
@@ -160,4 +178,31 @@ const getDestinationById = async (request, h) => {
   return response
 }
 
-module.exports = { registerUser, loginUser, getDestinationById }
+const searchDestinationByPlaceName = async (request, h) => {
+  const { place_name } = request.payload
+
+  const searchQuery = 'SELECT * FROM destinations WHERE place_name = ?'
+  const [row] = await dbConfig.query(searchQuery, [place_name])
+
+  if (row.length != 1) {
+    const response = h.response({
+      status: 'failed',
+      message: 'Place is not found',
+    })
+    response.code(400)
+    return response
+  }
+
+  const response = h.response({
+    status: 'success',
+    data: row[0],
+  })
+  return response
+}
+
+module.exports = {
+  registerUser,
+  loginUser,
+  getDestinationById,
+  searchDestinationByPlaceName,
+}

@@ -1,4 +1,9 @@
-const { registerUser, loginUser, getDestinationById } = require('./handler')
+const {
+  registerUser,
+  loginUser,
+  getDestinationById,
+  searchDestinationByPlaceName,
+} = require('./handler')
 
 const routes = [
   {
@@ -14,8 +19,13 @@ const routes = [
   },
   {
     method: 'GET',
-    path: '/api/destination/{id}',
+    path: '/api/destination/place/{id}',
     handler: getDestinationById,
+  },
+  {
+    method: 'POST',
+    path: '/api/destination/search',
+    handler: searchDestinationByPlaceName,
   },
 ]
 
