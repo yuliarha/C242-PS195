@@ -4,6 +4,7 @@ const { generateToken } = require('./token')
 const { nanoid } = require('nanoid')
 const { loginSchema } = require('./schema')
 const { registerSchema } = require('./schema')
+const axios = require('axios')
 
 const registerUser = async (request, h) => {
   const { error } = registerSchema.validate(request.payload, {
@@ -201,9 +202,33 @@ const searchDestinationByPlaceName = async (request, h) => {
   return response
 }
 
+const recommendPlaceByLastseen = async (request, h) => {
+  const authUser = request.auth.credentials
+  const { email } = authUser
+
+  const query = 'SELECT * FROM users WHERE email = ?'
+  const [row] = await dbConfig.query(query, [email])
+
+  const id = 9
+
+  const targetUrl = `http://localhost:8080/api/destination/recommendation-cb/history/${id}`
+
+  const dataResponse = await axios.get(targetUrl)
+
+  const { data } = dataResponse
+
+  const response = h.response({
+    status: 'success',
+    data,
+  })
+  response.code(200)
+  return response
+}
+
 module.exports = {
   registerUser,
   loginUser,
   getDestinationById,
   searchDestinationByPlaceName,
+  recommendPlaceByLastseen,
 }

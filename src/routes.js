@@ -3,7 +3,9 @@ const {
   loginUser,
   getDestinationById,
   searchDestinationByPlaceName,
+  recommendPlaceByLastseen,
 } = require('./handler')
+const { validateToken } = require('./token')
 
 const routes = [
   {
@@ -25,6 +27,14 @@ const routes = [
     method: 'POST',
     path: '/api/destination/search',
     handler: searchDestinationByPlaceName,
+  },
+  {
+    method: 'GET',
+    path: '/api/destination/recommend/history',
+    handler: recommendPlaceByLastseen,
+    options: {
+      pre: [{ method: validateToken }],
+    },
   },
 ]
 
