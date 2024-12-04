@@ -3,6 +3,7 @@ from flask import jsonify, request, Flask
 from db_connection import get_connection
 from first_model_handler import recommend_place, data, first_model, tfidf
 from second_model_handler import get_similar_places
+import random
 
 
 app = Flask(__name__)
@@ -37,13 +38,26 @@ def recommendByPlaceName():
     return jsonify(result)
 
 
-@app.route("/api/destination/recommendation-cb/<int:id>", methods=["GET"])
-def recommendByContent(id):
+@app.route("/api/destination/recommendation-cb/<location>", methods=["GET"])
+def recommendByContent(location):
     top_n = 100
+
+    location_to_ids = {
+        "jakarta": [1, 8, 36],
+        "bali": [367, 320, 310],
+        "medan": [67, 71, 62],
+        "padang": [81, 97, 77],
+        "batam": [258, 284, 232],
+        "yogyakarta": [479, 488, 534],
+        "lombok": [108, 134, 180],
+    }
+
+    ids = location_to_ids.get(location, [])
+    id = random.choice(ids) if ids else None
+
     place_names = get_similar_places(id, top_n)
     place_names_str = "', '".join(place_names)
-    query = f"SELECT * FROM destinations WHERE place_name IN ('{place_names_str}');"
-
+    query = f"SELECT * FROM destinations WHERE place_name IN ('{place_names_str}') AND city_tag='{location}';"
     connection = get_connection()
     cursor = connection.cursor()
     cursor.execute(query)
