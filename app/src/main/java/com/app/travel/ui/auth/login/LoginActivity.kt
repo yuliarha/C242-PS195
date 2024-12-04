@@ -16,30 +16,29 @@ import com.app.travel.MainActivity
 import com.app.travel.R
 import com.app.travel.data.repo.Injection
 import com.app.travel.databinding.ActivityLoginBinding
-import com.app.travel.databinding.LayoutLoginBinding
-import com.app.travel.databinding.LayoutRegisterBinding
 import com.app.travel.ui.ViewModelFactory
 import com.app.travel.ui.auth.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var buttonLogin: Button
     private val loginViewModel: LoginViewModel by viewModels {
         ViewModelFactory(Injection.provideRepository(this))
     }
-    private lateinit var binding: LayoutLoginBinding
+    private lateinit var binding: ActivityLoginBinding
+    private val buttonLogin: Button by lazy { findViewById(R.id.loginButton) }
+    private val tvRegister: TextView by lazy { findViewById(R.id.textViewRegister) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = LayoutLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val tvRegister = findViewById<TextView>(R.id.textViewRegister)
+
         tvRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
-        buttonLogin = findViewById(R.id.loginButton)
+
         buttonLogin.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
@@ -64,9 +63,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.loginButton.setOnClickListener {
-            val name = binding.editTextEmail.text.toString().trim()
-            val password = binding.editTextPassword.text.toString().trim()
+        buttonLogin.setOnClickListener {
+            val etEmail = findViewById<TextView>(R.id.editTextEmail)
+            val name = etEmail.text.toString().trim()
+            val etPassword = findViewById<TextView>(R.id.editTextPassword)
+            val password = etPassword.text.toString().trim()
 
             if (name.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "All fields must be filled", Toast.LENGTH_SHORT).show()
@@ -92,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginViewModel.isLoading.observe(this) { isLoading ->
-            binding.loginButton.isEnabled = !isLoading
+            buttonLogin.isEnabled = !isLoading
         }
     }
 }

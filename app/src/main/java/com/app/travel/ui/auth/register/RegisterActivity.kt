@@ -9,6 +9,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -24,20 +25,20 @@ import com.app.travel.ui.auth.login.LoginActivity
 import java.util.Locale
 
 class RegisterActivity : AppCompatActivity() {
-
-    private lateinit var binding: LayoutRegisterBinding
+    private lateinit var binding: ActivityRegisterBinding
     private lateinit var selectedCity: String
     private val registerViewModel: RegisterViewModel by viewModels {
         ViewModelFactory(Injection.provideRepository(this))
     }
+    private val registerButton: Button by lazy { findViewById(R.id.registerButton) }
+    private val tvLogin: TextView by lazy { findViewById(R.id.textViewLogin) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = LayoutRegisterBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val tvLogin = findViewById<TextView>(R.id.textViewLogin)
         tvLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
@@ -65,18 +66,16 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupAction() {
         val spinner: Spinner = findViewById(R.id.spinnerCities)
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.cities_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
-        }
+        val cities = resources.getStringArray(R.array.cities_array).toList()
+        val arrayAdapter = CustomArrayAdapter(this, android.R.layout.simple_spinner_item, cities)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = arrayAdapter
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                selectedCity = parent.getItemAtPosition(position).toString().toLowerCase(Locale.ROOT)
+                if (position != 0) {
+                    selectedCity = parent.getItemAtPosition(position).toString().toLowerCase(Locale.ROOT)
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -84,11 +83,15 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        binding.registerButton.setOnClickListener {
-            val username = binding.regisUname.text.toString().trim()
-            val email = binding.regisEmail.text.toString().trim()
-            val password = binding.regisPass.text.toString().trim()
-            val confirmPassword = binding.regisConfirmPass.text.toString().trim()
+        registerButton.setOnClickListener {
+            val regisUname = findViewById<TextView>(R.id.regisUname)
+            val username = regisUname.text.toString().trim()
+            val regisEmail = findViewById<TextView>(R.id.regisEmail)
+            val email = regisEmail.text.toString().trim()
+            val regisPass = findViewById<TextView>(R.id.regisPass)
+            val password = regisPass.text.toString().trim()
+            val regisConfirmPass = findViewById<TextView>(R.id.regisConfirmPass)
+            val confirmPassword = regisConfirmPass.text.toString().trim()
 
             if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "All fields must be filled", Toast.LENGTH_SHORT).show()
@@ -114,7 +117,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         registerViewModel.isLoading.observe(this) { isLoading ->
-            binding.registerButton.isEnabled = !isLoading
+            registerButton.isEnabled = !isLoading
         }
     }
 }

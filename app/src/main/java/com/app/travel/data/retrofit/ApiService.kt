@@ -4,11 +4,12 @@ import com.app.travel.data.response.LoginResponse
 import com.app.travel.data.response.RegisterResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
     @FormUrlEncoded
-    @POST("register")
+    @POST("user/register")
     suspend fun register (
         @Field("username") name: String,
         @Field("email") email: String,
@@ -18,9 +19,11 @@ interface ApiService {
     ) : RegisterResponse
 
     @FormUrlEncoded
-    @POST("login")
+    @POST("user/login")
     suspend fun login (
         @Field("email") name: String,
         @Field("password") password: String
     ) : LoginResponse
+
 }
+

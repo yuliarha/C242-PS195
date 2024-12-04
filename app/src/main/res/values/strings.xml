@@ -46,7 +46,11 @@
     <string name="get_started">Get Started</string>
 
     <string name="your_location">Your Location</string>
+    <string name="city_tag">City Tag</string>
+    <string name="category">Category</string>
+    <string name="recommended_for_you">Recommended for you</string>
     <string-array name="cities_array">
+        <item>Your Location</item>
         <item>Medan</item>
         <item>Padang</item>
         <item>Batam</item>

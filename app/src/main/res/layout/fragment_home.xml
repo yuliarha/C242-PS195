@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center|top">
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"
@@ -14,13 +19,46 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
+        android:text="@string/welcome"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
         app:layout_constraintVertical_bias="0.011" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_location"
+        />
+
+    <Spinner
+        android:id="@+id/spinnerCities"
+        style="@style/modifiedEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="16dp"
+        android:prompt="@string/your_location"
+        android:spinnerMode="dropdown"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/recommended_for_you"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recomendation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:listitem="@layout/item_recomendation_row"
+        />
+    </LinearLayout>
+
+
 
 
 </FrameLayout>
