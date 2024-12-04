@@ -11,7 +11,6 @@ const routes = [
     path: '/api/user/register',
     handler: registerUser,
   },
-
   {
     method: 'POST',
     path: '/api/user/login',

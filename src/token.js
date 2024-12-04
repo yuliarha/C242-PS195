@@ -47,8 +47,6 @@ const validateToken = (request, h) => {
     response.code(500).takeover()
     return response
   }
-
-  
 }
 
 module.exports = { generateToken, verifyToken, validateToken }
