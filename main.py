@@ -39,7 +39,7 @@ def recommendByPlaceName():
 
 
 @app.route("/api/destination/recommendation-cb/<location>", methods=["GET"])
-def recommendByContent(location):
+def recommendPlaceByLocation(location):
     top_n = 100
 
     location_to_ids = {
