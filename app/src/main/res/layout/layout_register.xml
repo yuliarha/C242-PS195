@@ -24,6 +24,7 @@
             android:layout_marginTop="@dimen/signup_text_margin_top">
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/regisUname"
                 style="@style/modifiedEditText"
                 android:inputType="text"
                 android:maxLines="1"
@@ -35,6 +36,7 @@
             android:layout_marginTop="@dimen/signup_text_margin_top">
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/regisEmail"
                 style="@style/modifiedEditText"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
@@ -46,16 +48,41 @@
             android:layout_marginTop="@dimen/signup_text_margin_top">
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/regisPass"
                 style="@style/modifiedEditText"
+                android:hint="@string/password"
                 android:inputType="textPassword"
-                android:maxLines="1"
-                android:hint="@string/password"/>
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent"
+            android:layout_marginTop="@dimen/signup_text_margin_top">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/regisConfirmPass"
+                style="@style/modifiedEditText"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spinnerCities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:spinnerMode="dropdown"
+            android:prompt="@string/your_location" />
+
         <Button
+            android:id="@+id/registerButton"
             style="@style/loginButton"
             android:layout_gravity="center"
-            android:text="@string/register" />
+            android:text="@string/register"/>
 
         <TextView
             android:id="@+id/textViewLogin"

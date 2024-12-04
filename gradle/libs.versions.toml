@@ -3,6 +3,7 @@ agp = "8.6.0"
 cardview = "1.0.0"
 cardviewV7 = "28.0.0"
 converterGson = "2.9.0"
+datastorePreferences = "1.1.1"
 glide = "4.16.0"
 kotlin = "1.9.0"
 coreKtx = "1.15.0"
@@ -24,6 +25,7 @@ retrofit = "2.9.0"
 [libraries]
 androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 cardview-v7 = { module = "com.android.support:cardview-v7", version.ref = "cardviewV7" }
 design = { module = "com.android.support:design", version.ref = "cardviewV7" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }

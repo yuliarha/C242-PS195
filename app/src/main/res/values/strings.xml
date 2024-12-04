@@ -22,6 +22,7 @@
     <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
     <string name="signup_login_hint">Already have an account? Login</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="username">Username</string>
     <string name="register">Register</string>
     <string name="email">Email</string>
@@ -43,4 +44,15 @@
     <string name="the_best_place_to_find_your_next_trip_and_explore_the_world_you_never_knew_before_here">The Best Place To Find Your Next Trip and Explore the world you never knew before here</string>
     <string name="welcome_to_hotrip_app">Welcome To Hotrip App</string>
     <string name="get_started">Get Started</string>
+
+    <string name="your_location">Your Location</string>
+    <string-array name="cities_array">
+        <item>Medan</item>
+        <item>Padang</item>
+        <item>Batam</item>
+        <item>Jakarta</item>
+        <item>Yogyakarta</item>
+        <item>Lombok</item>
+        <item>Bali</item>
+    </string-array>
 </resources>

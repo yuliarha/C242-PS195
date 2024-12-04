@@ -3,8 +3,9 @@ package com.app.travel.ui
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.app.travel.data.pref.Injection
-import com.app.travel.data.pref.UserRepository
+import com.app.travel.data.repo.Injection
+import com.app.travel.data.repo.UserRepository
+import com.app.travel.ui.auth.login.LoginViewModel
 import com.app.travel.ui.auth.register.RegisterViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -14,6 +15,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
         return when {
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
+                LoginViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

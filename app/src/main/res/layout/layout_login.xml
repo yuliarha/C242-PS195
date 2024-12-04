@@ -43,7 +43,7 @@
         </com.google.android.material.textfield.TextInputLayout>
         
         <Button
-            android:id="@+id/LoginButton"
+            android:id="@+id/loginButton"
             style="@style/loginButton"
             android:text="@string/login"
             android:layout_gravity="center_horizontal"
