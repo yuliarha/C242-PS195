@@ -140,13 +140,14 @@ const loginUser = async (request, h) => {
     const response = h.response({
       status: 'success',
       loginResult: {
-        username,
+        email,
         token,
       },
     })
     response.code(200)
     return response
   } catch (error) {
+    console.log(error)
     const response = h.response({
       status: 'failed',
       message: error,
