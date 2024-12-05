@@ -68,14 +68,15 @@ const recommendPlaceByLastseen = async (request, h) => {
   return response
 }
 const getDestinationByCatergoryName = async (request, h) => {
-  const { categoryname } = request.params
-  const categoryquery = 'SELECT * FROM destinations WHERE category_name=?'
-  const [row] = await dbConfig.query(categoryquery, [categoryname])
+  const { category } = request.params
 
-  if (row.length != 1) {
+  const categoryQuery = 'SELECT * FROM destinations WHERE category=?'
+  const [row] = await dbConfig.query(categoryQuery, [category])
+
+  if (row.length === 0) {
     const response = h.response({
       status: 'failed',
-      message: 'No place was found with that name',
+      message: 'No place was found with that category',
     })
     response.code(400)
     return response
@@ -83,21 +84,21 @@ const getDestinationByCatergoryName = async (request, h) => {
 
   const response = h.response({
     status: 'success',
-    data: row[0],
+    data: row,
   })
   response.code(200)
   return response
 }
 
 const getDestinationByCityTag = async (request, h) => {
-  const { citytag } = request.params
+  const { cityTag } = request.params
   const getcityquery = 'SELECT * FROM destinations WHERE city_tag=?'
-  const [row] = await dbConfig.query(getcityquery, [citytag])
+  const [row] = await dbConfig.query(getcityquery, [cityTag])
 
-  if (row.length != 1) {
+  if (row.length === 0) {
     const response = h.response({
       status: 'failed',
-      message: 'theres no city with such name',
+      message: 'No destinations found with such name',
     })
     response.code(400)
     return response
@@ -105,7 +106,7 @@ const getDestinationByCityTag = async (request, h) => {
 
   const response = h.response({
     status: 'success',
-    data: row[0],
+    data: row,
   })
   response.code(200)
   return response

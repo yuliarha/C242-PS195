@@ -39,12 +39,12 @@ const routes = [
   },
   {
     method: 'GET',
-    path: '/api/destination/category/{categoryname}',
+    path: '/api/destination/category/{category}',
     handler: getDestinationByCatergoryName,
   },
   {
     method: 'GET',
-    path: '/api/destination/city/{citytag}',
+    path: '/api/destination/city/{cityTag}',
     handler: getDestinationByCityTag,
   },
 ]
