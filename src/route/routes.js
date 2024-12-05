@@ -23,6 +23,9 @@ const routes = [
     method: 'GET',
     path: '/api/destination/place/{id}',
     handler: getDestinationById,
+    options: {
+      pre: [{ method: validateToken }],
+    },
   },
   {
     method: 'POST',

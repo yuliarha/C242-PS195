@@ -4,9 +4,23 @@ const axios = require('axios')
 const getDestinationById = async (request, h) => {
   const { id } = request.params
   const searchQuery = 'SELECT * FROM destinations WHERE id = ?'
-  const [row] = await dbConfig.query(searchQuery, [id])
+  const [destinationRow] = await dbConfig.query(searchQuery, [id])
 
-  if (row.length != 1) {
+  const authUser = request.auth.credentials
+  const { email } = authUser
+  const lastSeenQueryUpdate = 'UPDATE users SET last_seen = ? WHERE email = ?'
+  const [userRow] = await dbConfig.query(lastSeenQueryUpdate, [id, email])
+
+  if (userRow.affectedRows != 1) {
+    const response = h.response({
+      status: 'Failed',
+      status: 'System failure',
+    })
+    response.code(500)
+    return response
+  }
+
+  if (destinationRow.length != 1) {
     const response = h.response({
       status: 'failed',
       message: 'No place was found with that ID',
@@ -17,7 +31,7 @@ const getDestinationById = async (request, h) => {
 
   const response = h.response({
     status: 'success',
-    data: row[0],
+    data: destinationRow[0],
   })
   response.code(200)
   return response
@@ -52,7 +66,7 @@ const recommendPlaceByLastseen = async (request, h) => {
   const query = 'SELECT * FROM users WHERE email = ?'
   const [row] = await dbConfig.query(query, [email])
 
-  const id = 9
+  const id = row[0].last_seen
 
   const targetUrl = `http://localhost:8080/api/destination/recommendation-cb/history/${id}`
 
@@ -67,6 +81,7 @@ const recommendPlaceByLastseen = async (request, h) => {
   response.code(200)
   return response
 }
+
 const getDestinationByCatergoryName = async (request, h) => {
   const { category } = request.params
 

@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const { nanoid } = require('nanoid')
 const { generateToken } = require('../token/token')
 const { registerSchema, loginSchema } = require('../validation/schema')
+const dbConfig = require('../db/db')
 
 const registerUser = async (request, h) => {
   const { error } = registerSchema.validate(request.payload, {
