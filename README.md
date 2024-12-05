@@ -68,7 +68,7 @@
 
 #### Request
 
-| **Method** | **POST**                             |
+| **Method** | **GET**                              |
 | :--------- | :----------------------------------- |
 | `Endpoint` | `/api/destination/recommend/history` |
 
@@ -113,9 +113,185 @@
       "state": "Daerah Khusus Ibukota Jakarta"
     },
     {
-      ...
+      // ...
     }
   ]
+}
+```
+
+### 4. Destinations by Category
+
+#### Request
+
+| **Method** | **GET**                                |
+| :--------- | :------------------------------------- |
+| `Endpoint` | `/api/destination/category/{category}` |
+
+#### Response
+
+| **Status Code** | **Description**           | **Response Body**                                                        |
+| --------------- | ------------------------- | ------------------------------------------------------------------------ |
+| 200             | Data fetched successfully | See example below                                                        |
+| 400             | Bad request               | {"status": "failed","message": "No place was found with that category" } |
+
+##### Response Example
+
+```json
+{
+  "status": "success",
+  "data": [
+    {
+      "id": 2,
+      "place_name": "Taman Nasional Kepulauan Seribu",
+      "state": "Daerah Khusus Ibukota Jakarta",
+      "city": "Kab. Administrasi Kepulauan Seribu",
+      "city_tag": "jakarta",
+      "phone": "-",
+      "category": "alam",
+      "description": "Penyu, snorkeling dan menyelam di taman alam yang tersebar di Kepulauan Seribu.",
+      "image_url": "https://storage.googleapis.com/travelease-bucket/jakarta/taman_nasional_kepulauan_seribu.jpg",
+      "reviews_count": 555,
+      "rating": 4.6,
+      "lat": "-5.7453663",
+      "lng": "106.6151821",
+      "cluster": 4
+    },
+    {
+      // ...
+    }
+  ]
+}
+```
+
+### 5. Search Place by Place Name
+
+#### Request
+
+| **Method**     | **POST**                         |
+| :------------- | :------------------------------- |
+| `Endpoint`     | `/api/destination/search`        |
+| `Headers`      | `Content-Type: application/json` |
+| `Request Body` | `JSON`                           |
+
+#### Response
+
+| **Status Code** | **Description**           | **Response Body**                                     |
+| --------------- | ------------------------- | ----------------------------------------------------- |
+| 200             | Data fetched successfully | See example below                                     |
+| 400             | Bad request               | {"status": "failed","message": "Place is not found" } |
+
+##### Example
+
+```json
+{
+  "place_name": "Taman Mini Indonesia Indah"
+}
+```
+
+##### Response Example
+
+```json
+{
+  "status": "success",
+  "data": {
+    "id": 1,
+    "place_name": "Taman Mini Indonesia Indah",
+    "state": "Daerah Khusus Ibukota Jakarta",
+    "city": "Kota Jakarta Timur",
+    "city_tag": "jakarta",
+    "phone": "+62 804 178 9789",
+    "category": "rekreasi_keluarga",
+    "description": "Taman yang memamerkan budaya dan alam Indonesia melalui museum, taman, dan replika pemandangan terkenal.",
+    "image_url": "https://storage.googleapis.com/travelease-bucket/jakarta/taman_mini_indonesia_indah.jpg",
+    "reviews_count": 164271,
+    "rating": 4.6,
+    "lat": "-6.3020386",
+    "lng": "106.8898924",
+    "cluster": 8
+  }
+}
+```
+
+### 6. Destinations by City
+
+#### Request
+
+| **Method** | **GET**                        |
+| :--------- | :----------------------------- |
+| `Endpoint` | `/api/destination/city/{city}` |
+
+#### Response
+
+| **Status Code** | **Description**           | **Response Body**                                     |
+| --------------- | ------------------------- | ----------------------------------------------------- |
+| 200             | Data fetched successfully | See example below                                     |
+| 400             | Bad request               | {"status": "failed","message": "Place is not found" } |
+
+##### Response Example
+
+```json
+{
+  "status": "success",
+  "data": [
+    {
+      "id": 52,
+      "place_name": "Tjong A Fie Mansion",
+      "state": "Sumatera Utara",
+      "city": "Kota Medan",
+      "city_tag": "medan",
+      "phone": "+62 811-6130-388",
+      "category": "tujuan_wisata",
+      "description": "Dibangun pada 1895, rumah pengusaha ternama Tjong A Fie yang dipugar, menyediakan galeri dan tur berpemandu.",
+      "image_url": "https://storage.googleapis.com/travelease-bucket/medan/tjong_a_fie_mansion.jpg",
+      "reviews_count": 3145,
+      "rating": 4.6,
+      "lat": "3.5853631",
+      "lng": "98.6802302",
+      "cluster": 1
+    },
+    {
+      // ...
+    }
+  ]
+}
+```
+
+### 7. Destinations by ID
+
+#### Request
+
+| **Method** | **GET**                       |
+| :--------- | :---------------------------- |
+| `Endpoint` | `/api/destination/place/{id}` |
+
+#### Response
+
+| **Status Code** | **Description**           | **Response Body**                                                  |
+| --------------- | ------------------------- | ------------------------------------------------------------------ |
+| 200             | Data fetched successfully | See example below                                                  |
+| 400             | Bad request               | {"status": "failed","message": "No place was found with that ID" } |
+
+##### Response Example
+
+```json
+{
+  "status": "success",
+  "data": {
+    "id": 1,
+    "place_name": "Taman Mini Indonesia Indah",
+    "state": "Daerah Khusus Ibukota Jakarta",
+    "city": "Kota Jakarta Timur",
+    "city_tag": "jakarta",
+    "phone": "+62 804 178 9789",
+    "category": "rekreasi_keluarga",
+    "description": "Taman yang memamerkan budaya dan alam Indonesia melalui museum, taman, dan replika pemandangan terkenal.",
+    "image_url": "https://storage.googleapis.com/travelease-bucket/jakarta/taman_mini_indonesia_indah.jpg",
+    "reviews_count": 164271,
+    "rating": 4.6,
+    "lat": "-6.3020386",
+    "lng": "106.8898924",
+    "cluster": 8
+  }
 }
 ```
 
