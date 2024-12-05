@@ -8,10 +8,11 @@
 
 ### Register User
 
-| **Method** | **POST** |
-| `Endpoint` | `/api/user/register` |
-| `Headers` | `Content-Type: application/json` |
-| `Request Body` | `JSON` |
+| **Method**     | **POST**                         |
+| :------------- | :------------------------------- |
+| `Endpoint`     | `/api/user/register`             |
+| `Headers`      | `Content-Type: application/json` |
+| `Request Body` | `JSON`                           |
 
 ## Cloud Architecture
 
