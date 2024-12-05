@@ -103,7 +103,7 @@
       "cluster": 4,
       "description": "Museum yang menampilkan sejarah perbankan lokal, termasuk mata uang antik dan uang kertas internasional.",
       "id": 30,
-      "image_url": "https://storage.googleapis.com/travelease-bucket/jakarta/museum_bank_indonesia.jpg",
+      "image_url": "https://lh5.googleusercontent.com/p/AF1QipOKS6m4idJIhAlg02WwUkMaRzCHZlkhwjtA5qh6=w675-h390-n-k-no",
       "lat": "-6.1371066",
       "lng": "106.8129846",
       "phone": "+62 812-9157-3940",
