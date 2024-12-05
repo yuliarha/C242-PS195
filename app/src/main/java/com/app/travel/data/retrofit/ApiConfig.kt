@@ -22,4 +22,20 @@ object ApiConfig {
 
         return retrofit.create(ApiService::class.java)
     }
+    fun getRecommendationService() : ApiService {
+        val loggingInterceptor =
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://hotrip-recommendation-532273766967.asia-southeast2.run.app/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        return retrofit.create(ApiService::class.java)
+    }
 }

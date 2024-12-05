@@ -84,6 +84,8 @@ class LoginActivity : AppCompatActivity() {
                 setMessage(message)
                 setPositiveButton("OK") { _, _ ->
                     if (message?.contains("success", true) == true) {
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this@LoginActivity).toBundle())
                         finish()
                     }
                 }
