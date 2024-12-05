@@ -68,7 +68,7 @@ const recommendPlaceByLastseen = async (request, h) => {
 
   const id = row[0].last_seen
 
-  const targetUrl = `http://localhost:8080/api/destination/recommendation-cb/history/${id}`
+  const targetUrl = `${process.env.TARGET_URL}/${id}`
 
   const dataResponse = await axios.get(targetUrl)
 
