@@ -111,6 +111,9 @@
       "rating": 4.7,
       "reviews_count": 10637,
       "state": "Daerah Khusus Ibukota Jakarta"
+    },
+    {
+      ...
     }
   ]
 }
