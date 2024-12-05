@@ -1,4 +1,4 @@
 node_modules
+shell_script
 .env
 .DS_Store
-*.sh

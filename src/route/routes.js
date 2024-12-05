@@ -1,13 +1,12 @@
 const {
-  registerUser,
-  loginUser,
   getDestinationById,
   searchDestinationByPlaceName,
   recommendPlaceByLastseen,
   getDestinationByCatergoryName,
   getDestinationByCityTag,
-} = require('./handler')
-const { validateToken } = require('./token')
+} = require('../handler/destinationHandler')
+const { registerUser, loginUser } = require('../handler/userHandler')
+const { validateToken } = require('../token/token')
 
 const routes = [
   {
