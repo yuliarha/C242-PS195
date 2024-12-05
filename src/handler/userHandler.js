@@ -1,8 +1,7 @@
 const bcrypt = require('bcrypt')
-const { generateToken } = require('./token')
 const { nanoid } = require('nanoid')
-const { loginSchema } = require('./schema')
-const { registerSchema } = require('./schema')
+const { generateToken } = require('../token/token')
+const { registerSchema, loginSchema } = require('../validation/schema')
 
 const registerUser = async (request, h) => {
   const { error } = registerSchema.validate(request.payload, {
