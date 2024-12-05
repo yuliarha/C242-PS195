@@ -2,12 +2,14 @@ import tensorflow as tf
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics.pairwise import cosine_similarity
 
 
 file_path = "./datasets/destinations_db.csv"
 data = pd.read_csv(file_path)
+
+MODEL_URL = "./models/tourism_recommendation_model.h5"
+
+first_model = tf.keras.models.load_model(MODEL_URL)
 
 data["combined_features"] = data["category"] + " " + data["description"]
 
@@ -24,8 +26,3 @@ def recommend_place(input_place, data, model_1, tfidf):
         ["id", "place_name", "rating", "reviews_count"]
     ]
     return recommended_places
-
-
-MODEL_URL = "./models/tourism_recommendation_model.h5"
-
-first_model = tf.keras.models.load_model(MODEL_URL)
