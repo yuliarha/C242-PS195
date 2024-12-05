@@ -78,7 +78,7 @@
 | :------------ | :------------------- | :--------------------------- |
 | Authorization | `Bearer <JWT_TOKEN>` | JWT token for authentication |
 
-### Pre-requisite
+#### Pre-requisite
 
 | **Step**        | **Description**                                                          |
 | --------------- | ------------------------------------------------------------------------ |
